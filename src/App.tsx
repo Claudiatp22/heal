@@ -3,7 +3,7 @@ import {SafeAreaView, Text} from 'react-native';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 
-function App(): JSX.Element {
+function App() {
   return (
     <SafeAreaView style={{backgroundColor: Colors.lighter}}>
       <Text>Heal</Text>
