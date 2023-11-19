@@ -1,4 +1,7 @@
 module.exports = {
+  fakeTimers: {
+    enableGlobally: true,
+  },
   preset: 'react-native',
   setupFilesAfterEnv: ['<rootDir>/jest-setup.ts'],
   transformIgnorePatterns: [
