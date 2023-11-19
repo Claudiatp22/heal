@@ -1,14 +1,13 @@
-import 'react-native';
 import React from 'react';
-import App from './App';
+import {App} from './App';
 import {render, screen} from '@testing-library/react-native';
 
 describe('App component', () => {
-  it('should show name of the app', () => {
+  it('should show an add injury button', () => {
     render(<App />);
 
-    const text = screen.getByText('Heal');
+    const button = screen.getByRole('button', {name: /add your injury/i});
 
-    expect(text).toBeOnTheScreen();
+    expect(button).toBeOnTheScreen();
   });
 });
