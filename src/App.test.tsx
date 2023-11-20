@@ -1,31 +1,65 @@
 import React from 'react';
 import {App} from './App';
-import {fireEvent, render, screen} from '@testing-library/react-native';
+import {
+  act,
+  fireEvent,
+  render,
+  screen,
+  waitForElementToBeRemoved,
+} from '@testing-library/react-native';
 import {PaperProvider} from 'react-native-paper';
 
 describe('App component', () => {
-  it('should show an add injury button', () => {
+  const setup = () => {
     render(
       <PaperProvider>
         <App />
       </PaperProvider>,
     );
+  };
 
-    const button = screen.getByRole('button', {name: /add your injury/i});
+  it('should show an add injury button', () => {
+    setup();
 
-    expect(button).toBeOnTheScreen();
+    expect(
+      screen.getByRole('button', {name: /add your injury/i}),
+    ).toBeVisible();
   });
 
   it('should show an "example modal" when pressing the add injury button', () => {
-    render(
-      <PaperProvider>
-        <App />
-      </PaperProvider>,
-    );
+    jest.useFakeTimers();
+    setup();
 
     fireEvent.press(screen.getByRole('button', {name: /add your injury/i}));
-    const content = screen.getByText(/example modal./i);
+    act(() => jest.runAllTimers());
 
-    expect(content).toBeOnTheScreen();
+    expect(
+      screen.getByText(/your path to wellbeing starts now/i),
+    ).toBeVisible();
+  });
+
+  it('should submit an injury', async () => {
+    jest.useFakeTimers();
+    setup();
+
+    fireEvent.press(screen.getByRole('button', {name: /add your injury/i}));
+    act(() => jest.runAllTimers());
+    fireEvent.changeText(screen.getByTestId('text-input-outlined'), 'knee');
+    fireEvent.press(screen.getByRole('button', {name: /submit/i}));
+
+    await waitForElementToBeRemoved(() => screen.getByDisplayValue('knee'));
+  });
+
+  it('should go back to main page when cancelling', async () => {
+    jest.useFakeTimers();
+    setup();
+
+    fireEvent.press(screen.getByRole('button', {name: /add your injury/i}));
+    act(() => jest.runAllTimers());
+    fireEvent.press(screen.getByRole('button', {name: /cancel/i}));
+
+    await waitForElementToBeRemoved(() =>
+      screen.getByText(/your path to wellbeing starts now/i),
+    );
   });
 });
