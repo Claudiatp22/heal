@@ -1,5 +1,3 @@
-import React from 'react';
-import {App} from './App';
 import {
   act,
   fireEvent,
@@ -7,13 +5,15 @@ import {
   screen,
   waitForElementToBeRemoved,
 } from '@testing-library/react-native';
+import React from 'react';
 import {PaperProvider} from 'react-native-paper';
+import {Home} from './Home';
 
-describe('App component', () => {
+describe('Home component', () => {
   const setup = () => {
     render(
       <PaperProvider>
-        <App />
+        <Home />
       </PaperProvider>,
     );
   };
@@ -50,7 +50,7 @@ describe('App component', () => {
     await waitForElementToBeRemoved(() => screen.getByDisplayValue('knee'));
   });
 
-  it('should go back to main page when cancelling', async () => {
+  it('should go back to Home page when cancelling', async () => {
     jest.useFakeTimers();
     setup();
 
