@@ -5,8 +5,8 @@ import {InjuryForm, InjuryFormProps} from './InjuryForm';
 
 describe('InjuryForm component', () => {
   const defaultProps: InjuryFormProps = {
-    submit: () => {},
-    cancel: () => {},
+    onSubmit: () => {},
+    onCancel: () => {},
   };
 
   const setupWithOverrides = (overrides?: Partial<InjuryFormProps>) =>
@@ -33,16 +33,17 @@ describe('InjuryForm component', () => {
 
   it('should call submit callback', () => {
     const onSubmit = jest.fn();
-    setupWithOverrides({submit: onSubmit});
+    setupWithOverrides({onSubmit: onSubmit});
 
+    fireEvent.changeText(screen.getByTestId('text-input-outlined'), 'knee');
     fireEvent.press(screen.getByRole('button', {name: /submit/i}));
 
-    expect(onSubmit).toHaveBeenCalled();
+    expect(onSubmit).toHaveBeenCalledWith('knee');
   });
 
   it('should call cancel callback', () => {
     const onCancel = jest.fn();
-    setupWithOverrides({cancel: onCancel});
+    setupWithOverrides({onCancel: onCancel});
 
     fireEvent.press(screen.getByRole('button', {name: /cancel/i}));
 

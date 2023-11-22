@@ -18,7 +18,7 @@ describe('Home component', () => {
     );
   };
 
-  it('should show an add injury button', () => {
+  it('should show an add injury button when there is no injury registered', () => {
     setup();
 
     expect(
@@ -26,7 +26,7 @@ describe('Home component', () => {
     ).toBeVisible();
   });
 
-  it('should show an "example modal" when pressing the add injury button', () => {
+  it('should ask the user to register an injury when pressing the add injury button', () => {
     jest.useFakeTimers();
     setup();
 
@@ -36,18 +36,6 @@ describe('Home component', () => {
     expect(
       screen.getByText(/your path to wellbeing starts now/i),
     ).toBeVisible();
-  });
-
-  it('should submit an injury', async () => {
-    jest.useFakeTimers();
-    setup();
-
-    fireEvent.press(screen.getByRole('button', {name: /add your injury/i}));
-    act(() => jest.runAllTimers());
-    fireEvent.changeText(screen.getByTestId('text-input-outlined'), 'knee');
-    fireEvent.press(screen.getByRole('button', {name: /submit/i}));
-
-    await waitForElementToBeRemoved(() => screen.getByDisplayValue('knee'));
   });
 
   it('should go back to Home page when cancelling', async () => {
@@ -61,5 +49,16 @@ describe('Home component', () => {
     await waitForElementToBeRemoved(() =>
       screen.getByText(/your path to wellbeing starts now/i),
     );
+  });
+
+  it('should display the user injury instead of the add injury button when there is one registered', () => {
+    setup();
+
+    fireEvent.press(screen.getByRole('button', {name: /add your injury/i}));
+    act(() => jest.runAllTimers());
+    fireEvent.changeText(screen.getByTestId('text-input-outlined'), 'knee');
+    fireEvent.press(screen.getByRole('button', {name: /submit/i}));
+
+    expect(screen.getByText(/you have a knee injury/i)).toBeVisible();
   });
 });

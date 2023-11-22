@@ -3,11 +3,11 @@ import {StyleSheet, View} from 'react-native';
 import {Button, Text, TextInput} from 'react-native-paper';
 
 export interface InjuryFormProps {
-  submit: () => void;
-  cancel: () => void;
+  onSubmit: (injury: string) => void;
+  onCancel: () => void;
 }
 
-export const InjuryForm = ({submit, cancel}: InjuryFormProps) => {
+export const InjuryForm = ({onSubmit, onCancel}: InjuryFormProps) => {
   const [text, setText] = React.useState('');
 
   return (
@@ -23,10 +23,13 @@ export const InjuryForm = ({submit, cancel}: InjuryFormProps) => {
         style={styles.input}
       />
       <View style={styles.buttonContainer}>
-        <Button style={styles.submitButton} mode="contained" onPress={submit}>
+        <Button
+          style={styles.submitButton}
+          mode="contained"
+          onPress={() => onSubmit(text)}>
           Submit
         </Button>
-        <Button mode="elevated" onPress={cancel}>
+        <Button mode="elevated" onPress={onCancel}>
           Cancel
         </Button>
       </View>
