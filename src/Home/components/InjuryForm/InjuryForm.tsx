@@ -16,6 +16,7 @@ export const InjuryForm = ({onSubmit, onCancel}: InjuryFormProps) => {
         Your path to wellbeing starts now
       </Text>
       <TextInput
+        accessibilityLabel="input"
         mode="outlined"
         label="What injury are you suffering at the moment?"
         value={text}

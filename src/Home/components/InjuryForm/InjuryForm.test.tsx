@@ -25,7 +25,7 @@ describe('InjuryForm component', () => {
   it('should write an injury', () => {
     setup();
 
-    fireEvent.changeText(screen.getByTestId('text-input-outlined'), 'knee');
+    fireEvent.changeText(screen.getByLabelText('input'), 'knee');
 
     const text = screen.getByDisplayValue('knee');
     expect(text).toBeVisible();
@@ -35,7 +35,7 @@ describe('InjuryForm component', () => {
     const onSubmit = jest.fn();
     setupWithOverrides({onSubmit: onSubmit});
 
-    fireEvent.changeText(screen.getByTestId('text-input-outlined'), 'knee');
+    fireEvent.changeText(screen.getByLabelText('input'), 'knee');
     fireEvent.press(screen.getByRole('button', {name: /submit/i}));
 
     expect(onSubmit).toHaveBeenCalledWith('knee');

@@ -56,7 +56,7 @@ describe('Home component', () => {
 
     fireEvent.press(screen.getByRole('button', {name: /add your injury/i}));
     act(() => jest.runAllTimers());
-    fireEvent.changeText(screen.getByTestId('text-input-outlined'), 'knee');
+    fireEvent.changeText(screen.getByLabelText('input'), 'knee');
     fireEvent.press(screen.getByRole('button', {name: /submit/i}));
 
     expect(screen.getByText(/you have a knee injury/i)).toBeVisible();
