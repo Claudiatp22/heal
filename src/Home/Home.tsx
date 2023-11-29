@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {FAB, Modal, Portal, Text} from 'react-native-paper';
 
+import {SafeAreaView} from 'react-native-safe-area-context';
 import {InjuryForm} from './components/InjuryForm/InjuryForm';
 
 export const Home = () => {
@@ -17,12 +18,16 @@ export const Home = () => {
   };
 
   return (
-    <View>
+    <SafeAreaView style={styles.mainContainer}>
       {injury ? (
-        <Text>{`You have a ${injury} injury`}</Text>
-      ) : (
         <View>
-          <FAB icon="plus" label={'Add your injury'} onPress={showModal} />
+          <Text>{`You have a ${injury} injury`}</Text>
+        </View>
+      ) : (
+        <View style={styles.mainButtonContainer}>
+          <View style={styles.addInjuryButtonContainer}>
+            <FAB icon="plus" label={'Add your injury'} onPress={showModal} />
+          </View>
         </View>
       )}
       <Portal>
@@ -33,10 +38,21 @@ export const Home = () => {
           <InjuryForm onSubmit={submit} onCancel={hideModal} />
         </Modal>
       </Portal>
-    </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  mainContainer: {
+    flex: 1,
+    padding: 20,
+  },
+  mainButtonContainer: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  addInjuryButtonContainer: {
+    alignItems: 'center',
+  },
   modalContainer: {backgroundColor: 'white', padding: 20, margin: 20},
 });
