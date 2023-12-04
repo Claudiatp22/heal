@@ -3,8 +3,7 @@ import React, {useState} from 'react';
 import {BottomNavigation} from 'react-native-paper';
 import {Home} from './Home/Home';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
-
-const PainTracker = () => '';
+import {PainTracker} from './PainTracker/PainTracker';
 
 export const App = () => {
   const [index, setIndex] = useState(0);

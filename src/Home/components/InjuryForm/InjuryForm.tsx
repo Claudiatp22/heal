@@ -2,12 +2,12 @@ import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {Button, Text, TextInput} from 'react-native-paper';
 
-export interface InjuryFormProps {
+export interface IInjuryFormProps {
   onSubmit: (injury: string) => void;
   onCancel: () => void;
 }
 
-export const InjuryForm = ({onSubmit, onCancel}: InjuryFormProps) => {
+export const InjuryForm = ({onSubmit, onCancel}: IInjuryFormProps) => {
   const [text, setText] = React.useState('');
 
   return (
