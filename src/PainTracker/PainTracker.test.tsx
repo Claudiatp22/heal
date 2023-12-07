@@ -1,13 +1,13 @@
 import React from 'react';
 
-import {render, screen} from '@testing-library/react-native';
 import {PainTracker} from './PainTracker';
+import {fireEvent, render, screen} from '@testing-library/react-native';
 
 describe('PainTracker component', () => {
   it('should ask the user how is her pain feeling today', () => {
     render(<PainTracker />);
 
-    expect(screen.getByText('How is your pain level today?')).toBeVisible();
+    expect(screen.getByText(/how is your pain level today?/i)).toBeVisible();
   });
 
   it('should display several pain levels to choose from', () => {
@@ -19,5 +19,26 @@ describe('PainTracker component', () => {
     expect(screen.getByText(/I'm in pain most of the time 😵‍💫/i)).toBeVisible();
     expect(screen.getByText(/It can get instense 🥴/i)).toBeVisible();
     expect(screen.getByText(/This is unbearable 😫/i)).toBeVisible();
+  });
+
+  it('should display user`s registered pain level', () => {
+    render(<PainTracker />);
+
+    fireEvent.press(screen.getByText(/It can get instense 🥴/i));
+
+    expect(
+      screen.getByText(/Today you're feeling: It can get instense 🥴/i),
+    ).toBeVisible();
+  });
+
+  it('should not ask the user to register pain level if there is one', () => {
+    render(<PainTracker />);
+
+    fireEvent.press(screen.getByText(/Amazing! 😀/i));
+
+    expect(
+      screen.queryByText(/how is your pain level today?/i),
+    ).not.toBeOnTheScreen();
+    expect(screen.queryByText(/Okay 🙂/i)).not.toBeOnTheScreen();
   });
 });
