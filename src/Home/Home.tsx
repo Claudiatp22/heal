@@ -6,11 +6,11 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {InjuryForm} from './components/InjuryForm/InjuryForm';
 
 export const Home = () => {
-  const [visible, setVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const [injury, setInjury] = useState('');
 
-  const showModal = () => setVisible(true);
-  const hideModal = () => setVisible(false);
+  const showModal = () => setIsVisible(true);
+  const hideModal = () => setIsVisible(false);
 
   const submit = (injury: string) => {
     setInjury(injury);
@@ -32,7 +32,7 @@ export const Home = () => {
       )}
       <Portal>
         <Modal
-          visible={visible}
+          visible={isVisible}
           onDismiss={hideModal}
           contentContainerStyle={styles.modalContainer}>
           <InjuryForm onSubmit={submit} onCancel={hideModal} />
