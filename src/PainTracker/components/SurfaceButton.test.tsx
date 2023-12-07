@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {fireEvent, render, screen} from '@testing-library/react-native';
+import {render, screen, userEvent} from '@testing-library/react-native';
 import {ISurfaceButtonProps, SurfaceButton} from './SurfaceButton';
 
 describe('SurfaceButton component', () => {
@@ -27,11 +27,11 @@ describe('SurfaceButton component', () => {
     expect(screen.getByText(/this is a helper text/i)).toBeVisible();
   });
 
-  it('should call the submit callback', () => {
+  it('should call the submit callback', async () => {
     const submitMock = jest.fn();
     setupWithOverrides({onSubmit: submitMock});
 
-    fireEvent.press(screen.getByText(/a label/i));
+    await userEvent.press(screen.getByText(/a label/i));
 
     expect(submitMock).toHaveBeenCalledWith('myValue');
   });

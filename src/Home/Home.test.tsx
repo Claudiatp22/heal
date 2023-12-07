@@ -1,8 +1,7 @@
 import {
-  act,
-  fireEvent,
   render,
   screen,
+  userEvent,
   waitForElementToBeRemoved,
 } from '@testing-library/react-native';
 import React from 'react';
@@ -26,12 +25,12 @@ describe('Home component', () => {
     ).toBeVisible();
   });
 
-  it('should ask the user to register an injury when pressing the add injury button', () => {
-    jest.useFakeTimers();
+  it('should ask the user to register an injury when pressing the add injury button', async () => {
     setup();
 
-    fireEvent.press(screen.getByRole('button', {name: /add your injury/i}));
-    act(() => jest.runAllTimers());
+    await userEvent.press(
+      screen.getByRole('button', {name: /add your injury/i}),
+    );
 
     expect(
       screen.getByText(/your path to wellbeing starts now/i),
@@ -39,25 +38,26 @@ describe('Home component', () => {
   });
 
   it('should go back to Home page when cancelling', async () => {
-    jest.useFakeTimers();
     setup();
 
-    fireEvent.press(screen.getByRole('button', {name: /add your injury/i}));
-    act(() => jest.runAllTimers());
-    fireEvent.press(screen.getByRole('button', {name: /cancel/i}));
+    await userEvent.press(
+      screen.getByRole('button', {name: /add your injury/i}),
+    );
+    await userEvent.press(screen.getByRole('button', {name: /cancel/i}));
 
     await waitForElementToBeRemoved(() =>
       screen.getByText(/your path to wellbeing starts now/i),
     );
   });
 
-  it('should display the user injury instead of the add injury button when there is one registered', () => {
+  it('should display the user injury instead of the add injury button when there is one registered', async () => {
     setup();
 
-    fireEvent.press(screen.getByRole('button', {name: /add your injury/i}));
-    act(() => jest.runAllTimers());
-    fireEvent.changeText(screen.getByLabelText('input'), 'knee');
-    fireEvent.press(screen.getByRole('button', {name: /submit/i}));
+    await userEvent.press(
+      screen.getByRole('button', {name: /add your injury/i}),
+    );
+    await userEvent.type(screen.getByLabelText('input'), 'knee');
+    await userEvent.press(screen.getByRole('button', {name: /submit/i}));
 
     expect(screen.getByText(/you have a knee injury/i)).toBeVisible();
   });

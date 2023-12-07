@@ -1,15 +1,15 @@
 import React from 'react';
 
-import {fireEvent, render, screen} from '@testing-library/react-native';
-import {InjuryForm, InjuryFormProps} from './InjuryForm';
+import {render, screen, userEvent} from '@testing-library/react-native';
+import {InjuryForm, IInjuryFormProps} from './InjuryForm';
 
 describe('InjuryForm component', () => {
-  const defaultProps: InjuryFormProps = {
+  const defaultProps: IInjuryFormProps = {
     onSubmit: () => {},
     onCancel: () => {},
   };
 
-  const setupWithOverrides = (overrides?: Partial<InjuryFormProps>) =>
+  const setupWithOverrides = (overrides?: Partial<IInjuryFormProps>) =>
     render(<InjuryForm {...defaultProps} {...overrides} />);
 
   const setup = () => setupWithOverrides({});
@@ -22,30 +22,30 @@ describe('InjuryForm component', () => {
     ).toBeVisible();
   });
 
-  it('should write an injury', () => {
+  it('should write an injury', async () => {
     setup();
 
-    fireEvent.changeText(screen.getByLabelText('input'), 'knee');
+    await userEvent.type(screen.getByLabelText('input'), 'knee');
 
     const text = screen.getByDisplayValue('knee');
     expect(text).toBeVisible();
   });
 
-  it('should call submit callback', () => {
+  it('should call submit callback', async () => {
     const onSubmit = jest.fn();
     setupWithOverrides({onSubmit: onSubmit});
 
-    fireEvent.changeText(screen.getByLabelText('input'), 'knee');
-    fireEvent.press(screen.getByRole('button', {name: /submit/i}));
+    await userEvent.type(screen.getByLabelText('input'), 'knee');
+    await userEvent.press(screen.getByRole('button', {name: /submit/i}));
 
     expect(onSubmit).toHaveBeenCalledWith('knee');
   });
 
-  it('should call cancel callback', () => {
+  it('should call cancel callback', async () => {
     const onCancel = jest.fn();
     setupWithOverrides({onCancel: onCancel});
 
-    fireEvent.press(screen.getByRole('button', {name: /cancel/i}));
+    await userEvent.press(screen.getByRole('button', {name: /cancel/i}));
 
     expect(onCancel).toHaveBeenCalled();
   });
