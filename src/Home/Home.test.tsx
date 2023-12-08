@@ -59,6 +59,24 @@ describe('Home component', () => {
     await userEvent.type(screen.getByLabelText('input'), 'knee');
     await userEvent.press(screen.getByRole('button', {name: /submit/i}));
 
-    expect(screen.getByText(/you have a knee injury/i)).toBeVisible();
+    expect(
+      screen.getByText(/how is your knee injury feeling today?/i),
+    ).toBeVisible();
+  });
+
+  it('should show a register your pain levels button', async () => {
+    setup();
+
+    await userEvent.press(
+      screen.getByRole('button', {name: /add your injury/i}),
+    );
+    await userEvent.type(screen.getByLabelText('input'), 'knee');
+    await userEvent.press(screen.getByRole('button', {name: /submit/i}));
+
+    expect(
+      screen.getByRole('button', {
+        name: /register your pain level/i,
+      }),
+    ).toBeVisible();
   });
 });

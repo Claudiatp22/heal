@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
-import {FAB, Modal, Portal, Text} from 'react-native-paper';
+import {Button, FAB, Modal, Portal, Surface, Text} from 'react-native-paper';
 
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {InjuryForm} from './components/InjuryForm/InjuryForm';
@@ -13,16 +13,26 @@ export const Home = () => {
   const hideModal = () => setIsVisible(false);
 
   const submit = (injury: string) => {
-    setInjury(injury);
+    setInjury(injury.toLowerCase());
     hideModal();
   };
 
   return (
     <SafeAreaView style={styles.mainContainer}>
       {injury ? (
-        <View>
-          <Text>{`You have a ${injury} injury`}</Text>
-        </View>
+        <Surface style={styles.painLevelWidget}>
+          <Text
+            style={
+              styles.injuryText
+            }>{`How is your ${injury} injury feeling today?`}</Text>
+          <Button
+            icon="chevron-right"
+            mode="contained-tonal"
+            onPress={() => console.log('Pressed')}
+            contentStyle={styles.painLevelButton}>
+            Register your pain level
+          </Button>
+        </Surface>
       ) : (
         <View style={styles.mainButtonContainer}>
           <View style={styles.addInjuryButtonContainer}>
@@ -55,4 +65,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   modalContainer: {backgroundColor: 'white', padding: 20, margin: 20},
+  painLevelWidget: {
+    alignItems: 'flex-start',
+    borderRadius: 10,
+    backgroundColor: '#D3AA98',
+    shadowColor: '#D3AA98',
+    padding: 15,
+  },
+  injuryText: {
+    fontSize: 16,
+    fontWeight: '500',
+    marginBottom: 15,
+  },
+  painLevelButton: {flexDirection: 'row-reverse'},
 });
