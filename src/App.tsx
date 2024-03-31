@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
 
-import {BottomNavigation} from 'react-native-paper';
-import {Home} from './Home/Home';
+import {NavigationContainer} from '@react-navigation/native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
+import {Home} from './Home/Home';
 import {PainTracker} from './PainTracker/PainTracker';
+import {BottomNavigation} from 'react-native-paper';
 
 export const App = () => {
   const [index, setIndex] = useState(0);
@@ -28,14 +29,14 @@ export const App = () => {
   });
 
   return (
-    <SafeAreaProvider>
-      <BottomNavigation
-        // TODO: find out what to use instead of navigationState, it seems the library
-        // react-native-paper is also using a deprecated prop
-        navigationState={{index, routes}}
-        onIndexChange={setIndex}
-        renderScene={renderScene}
-      />
-    </SafeAreaProvider>
+    <NavigationContainer>
+      <SafeAreaProvider>
+        <BottomNavigation
+          navigationState={{index, routes}}
+          onIndexChange={setIndex}
+          renderScene={renderScene}
+        />
+      </SafeAreaProvider>
+    </NavigationContainer>
   );
 };

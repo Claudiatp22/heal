@@ -2,7 +2,13 @@ import React from 'react';
 import {StyleSheet} from 'react-native';
 import {Button, Surface, Text} from 'react-native-paper';
 
-export const RegisterPainLevelWidget = ({injury}: {injury: string}) => {
+export const RegisterPainLevelWidget = ({
+  injury,
+  navigate,
+}: {
+  injury: string;
+  navigate: () => void;
+}) => {
   return (
     <Surface style={styles.painLevelWidget}>
       <Text
@@ -12,7 +18,7 @@ export const RegisterPainLevelWidget = ({injury}: {injury: string}) => {
       <Button
         icon="chevron-right"
         mode="contained-tonal"
-        onPress={() => console.log('Pressed')}
+        onPress={() => navigate()}
         contentStyle={styles.painLevelButton}>
         Register your pain level
       </Button>

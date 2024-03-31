@@ -6,7 +6,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {InjuryForm} from './components/InjuryForm/InjuryForm';
 import {RegisterPainLevelWidget} from './components/RegisterPainLevelWidget';
 
-export const Home = () => {
+export const Home = ({jumpTo}: {jumpTo: (key: string) => void}) => {
   const [isVisible, setIsVisible] = useState(false);
   const [injury, setInjury] = useState('');
 
@@ -21,7 +21,10 @@ export const Home = () => {
   return (
     <SafeAreaView style={styles.mainContainer}>
       {injury ? (
-        <RegisterPainLevelWidget injury={injury} />
+        <RegisterPainLevelWidget
+          navigate={() => jumpTo('painTracker')}
+          injury={injury}
+        />
       ) : (
         <View style={styles.mainButtonContainer}>
           <View style={styles.addInjuryButtonContainer}>

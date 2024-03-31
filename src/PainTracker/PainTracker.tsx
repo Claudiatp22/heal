@@ -5,10 +5,10 @@ import {SurfaceButton} from './components/SurfaceButton';
 import {painLevels} from './content';
 
 interface IRegisteredPainLevel {
-  level: string;
-  helperText: string;
-  value: string;
-  color: string;
+  readonly level: string;
+  readonly helperText: string;
+  readonly value: string;
+  readonly color: string;
 }
 
 export const PainTracker = () => {

@@ -12,7 +12,7 @@ describe('Home component', () => {
   const setup = () => {
     render(
       <PaperProvider>
-        <Home />
+        <Home jumpTo={() => {}} />
       </PaperProvider>,
     );
   };
