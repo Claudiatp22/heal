@@ -1,11 +1,11 @@
-interface IPainLevels {
+export interface IPainLevel {
   level: string;
   helperText: string;
   value: string;
   color: string;
 }
 
-export const painLevels: IPainLevels[] = [
+export const painLevels: IPainLevel[] = [
   {
     level: '0',
     helperText: 'Amazing! 😀',

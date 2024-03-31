@@ -5,6 +5,7 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {Home} from './Home/Home';
 import {PainTracker} from './PainTracker/PainTracker';
 import {BottomNavigation} from 'react-native-paper';
+import {AppContextProvider} from './AppContext';
 
 export const App = () => {
   const [index, setIndex] = useState(0);
@@ -31,11 +32,13 @@ export const App = () => {
   return (
     <NavigationContainer>
       <SafeAreaProvider>
-        <BottomNavigation
-          navigationState={{index, routes}}
-          onIndexChange={setIndex}
-          renderScene={renderScene}
-        />
+        <AppContextProvider>
+          <BottomNavigation
+            navigationState={{index, routes}}
+            onIndexChange={setIndex}
+            renderScene={renderScene}
+          />
+        </AppContextProvider>
       </SafeAreaProvider>
     </NavigationContainer>
   );

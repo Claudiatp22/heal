@@ -16,7 +16,9 @@ describe('PainTracker component', () => {
     expect(screen.getByText(/Amazing! 😀/i)).toBeVisible();
     expect(screen.getByText(/Okay 🙂/i)).toBeVisible();
     expect(screen.getByText(/I feel some pain 😕/i)).toBeVisible();
-    expect(screen.getByText(/I'm in pain most of the time 😵‍💫/i)).toBeVisible();
+    expect(
+      screen.getByText(/I'm in pain most of the time 😵‍💫/i),
+    ).toBeVisible();
     expect(screen.getByText(/It can get instense 🥴/i)).toBeVisible();
     expect(screen.getByText(/This is unbearable 😫/i)).toBeVisible();
   });

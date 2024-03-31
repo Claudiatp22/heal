@@ -1,24 +1,12 @@
-import React, {useCallback, useState} from 'react';
+import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {Text} from 'react-native-paper';
 import {SurfaceButton} from './components/SurfaceButton';
 import {painLevels} from './content';
-
-interface IRegisteredPainLevel {
-  readonly level: string;
-  readonly helperText: string;
-  readonly value: string;
-  readonly color: string;
-}
+import {usePainTracker} from './usePainTracker';
 
 export const PainTracker = () => {
-  const [registeredPainLevel, setRegisteredPainLevel] =
-    useState<IRegisteredPainLevel>();
-
-  const registerPainLevel = useCallback((level: string) => {
-    const painLevel = painLevels.find(l => l.level === level);
-    painLevel && setRegisteredPainLevel(painLevel);
-  }, []);
+  const {registeredPainLevel, registerPainLevel} = usePainTracker();
 
   return (
     <View style={styles.mainContainer}>
